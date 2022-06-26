@@ -27,13 +27,15 @@ yarn start
 
 ## Useful Linked
 
+[Antd Admin](https://github.com/zuiidea/antd-admin) Origin project.
+
 [MDN](https://developer.mozilla.org/en-US/docs/Web) - To learning HTML, CSS, JavaScript.
 
 [React](https://reactjs.org) - UI framework.
 
 [React-Router](https://reactrouter.com/) - Application router.
 
-[Antd Desgin](https://ant.design) - UI component library.
+[Antd Design](https://ant.design) - UI component library.
 
 [Redux](https://redux.js.org) - State management.
 

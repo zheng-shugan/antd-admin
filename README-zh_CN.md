@@ -25,13 +25,15 @@
 
 ## 2. Useful Link
 
+[Antd Admin](https://github.com/zuiidea/antd-admin) 原项目
+
 [MDN](https://developer.mozilla.org/zh-CN/docs/Web) - HTML、CSS、JavaScript 基础
 
 [React](https://zh-hans.reactjs.org/) - UI 框架
 
 [React-Router](https://reactrouter.com/) - 路由
 
-[Antd Desgin](https://ant.design/index-cn) - UI 组件库
+[Antd Design](https://ant.design/index-cn) - UI 组件库
 
 [UmiJS](https://umijs.org/zh-CN) - 应用框架
 
