@@ -2,15 +2,18 @@ import { cloneDeep } from 'lodash'
 const { pathToRegexp } = require("path-to-regexp")
 import moment from 'moment'
 import 'moment/locale/zh-cn'
+// @ts-ignore
 import store from 'store'
 import { i18n } from './config'
+import classnames from 'classnames'
 
+// @ts-ignore
 export classnames from 'classnames'
-export config from './config'
-export request from './request'
+export * as config from './config'
+export { request } from './request'
 export { Color } from './theme'
 
-export const languages = i18n ? i18n.languages.map(item => item.key) : []
+export const languages = i18n ? i18n.languages.map((item: any) => item.key) : []
 export const defaultLanguage = i18n ? i18n.defaultLanguage : ''
 
 /**
@@ -20,7 +23,7 @@ export const defaultLanguage = i18n ? i18n.defaultLanguage : ''
  * @param   {string}        value   The value of the object that needs to be queried.
  * @return  {object|undefined}   Return frist object when query success.
  */
-export function queryArray(array, key, value) {
+export function queryArray(array: any, key: any, value: any) {
   if (!Array.isArray(array)) {
     return
   }
@@ -36,20 +39,20 @@ export function queryArray(array, key, value) {
  * @return  {array}    Return a tree-structured array.
  */
 export function arrayToTree(
-  array,
+  array: any,
   id = 'id',
   parentId = 'pid',
   children = 'children'
-) {
-  const result = []
-  const hash = {}
+): any {
+  const result: any = []
+  const hash: any = {}
   const data = cloneDeep(array)
 
-  data.forEach((item, index) => {
+  data.forEach((item: any, index: any) => {
     hash[data[index][id]] = data[index]
   })
 
-  data.forEach(item => {
+  data.forEach((item: any) => {
     const hashParent = hash[item[parentId]]
     if (hashParent) {
       !hashParent[children] && (hashParent[children] = [])
@@ -71,12 +74,12 @@ export function arrayToTree(
  * @param   {string}    id        The alias of the unique ID of the object in the array.
  * @return  {array}    Return a key array.
  */
-export function queryPathKeys(array, current, parentId, id = 'id') {
+export function queryPathKeys(array: any, current: any, parentId: any, id = 'id') {
   const result = [current]
   const hashMap = new Map()
-  array.forEach(item => hashMap.set(item[id], item))
+  array.forEach((item: any) => hashMap.set(item[id], item))
 
-  const getPath = current => {
+  const getPath = (current: any) => {
     const currentParentId = hashMap.get(current)[parentId]
     if (currentParentId) {
       result.push(currentParentId)
@@ -96,12 +99,12 @@ export function queryPathKeys(array, current, parentId, id = 'id') {
  * @param   {string}    id        The alias of the unique ID of the object in the array.
  * @return  {array}    Return a key array.
  */
-export function queryAncestors(array, current, parentId, id = 'id') {
+export function queryAncestors(array: any, current: any, parentId: any, id: string | any = 'id'): any {
   const result = [current]
   const hashMap = new Map()
-  array.forEach(item => hashMap.set(item[id], item))
+  array.forEach((item: any) => hashMap.set(item[id], item))
 
-  const getPath = current => {
+  const getPath = (current: any) => {
     const currentParentId = hashMap.get(current[id])[parentId]
     if (currentParentId) {
       result.push(hashMap.get(currentParentId))
@@ -119,10 +122,10 @@ export function queryAncestors(array, current, parentId, id = 'id') {
  * @param   {pathname}    pathname  Path name to be queried.
  * @return  {string}   Return frist object when query success.
  */
-export function queryLayout(layouts, pathname) {
+export function queryLayout(layouts: any, pathname: any) {
   let result = 'public'
 
-  const isMatch = regepx => {
+  const isMatch = (regepx: any) => {
     return regepx instanceof RegExp
       ? regepx.test(pathname)
       : pathToRegexp(regepx).exec(pathname)
@@ -163,7 +166,7 @@ export function getLocale() {
   return store.get('locale') || defaultLanguage
 }
 
-export function setLocale(language) {
+export function setLocale(language: any) {
   if (getLocale() !== language) {
     moment.locale(language === 'zh' ? 'zh-cn' : language)
     store.set('locale', language)

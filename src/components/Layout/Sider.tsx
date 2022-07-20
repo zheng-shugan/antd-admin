@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { Switch, Layout } from 'antd'
-import { t } from "@lingui/macro"
-import { Trans } from "@lingui/macro"
+import { t } from '@lingui/macro'
+import { Trans } from '@lingui/macro'
 import { BulbOutlined } from '@ant-design/icons'
 import ScrollBar from '../ScrollBar'
 import { config } from 'utils'
 import SiderMenu from './Menu'
 import styles from './Sider.less'
+import { SiderProps } from '@/types'
 
-class Sider extends PureComponent {
+class Sider extends PureComponent<SiderProps, Object> {
   render() {
     const {
       menus,
@@ -24,16 +24,16 @@ class Sider extends PureComponent {
       <Layout.Sider
         width={256}
         theme={theme}
-        breakpoint="lg"
+        breakpoint='lg'
         trigger={null}
         collapsible
         collapsed={collapsed}
-        onBreakpoint={!isMobile && onCollapseChange}
+        onBreakpoint={() => !isMobile && onCollapseChange}
         className={styles.sider}
       >
         <div className={styles.brand}>
           <div className={styles.logo}>
-            <img alt="logo" src={config.logoPath} />
+            <img alt='logo' src={config.logoPath} />
             {!collapsed && <h1>{config.siteName}</h1>}
           </div>
         </div>
@@ -63,7 +63,7 @@ class Sider extends PureComponent {
             <Switch
               onChange={onThemeChange.bind(
                 this,
-                theme === 'dark' ? 'light' : 'dark'
+                theme === 'dark' ? 'light' : 'dark',
               )}
               defaultChecked={theme === 'dark'}
               checkedChildren={t`Dark`}
@@ -74,15 +74,6 @@ class Sider extends PureComponent {
       </Layout.Sider>
     )
   }
-}
-
-Sider.propTypes = {
-  menus: PropTypes.array,
-  theme: PropTypes.string,
-  isMobile: PropTypes.bool,
-  collapsed: PropTypes.bool,
-  onThemeChange: PropTypes.func,
-  onCollapseChange: PropTypes.func,
 }
 
 export default Sider

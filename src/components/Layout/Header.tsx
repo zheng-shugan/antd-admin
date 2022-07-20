@@ -1,26 +1,27 @@
 import React, { PureComponent, Fragment } from 'react'
-import PropTypes from 'prop-types'
 import { Menu, Layout, Avatar, Popover, Badge, List } from 'antd'
-import { Ellipsis } from 'components'
+import { Ellipsis } from '@/components'
 import {
   BellOutlined,
   RightOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from '@ant-design/icons'
-import { Trans } from "@lingui/macro"
+import { Trans } from '@lingui/macro'
 import { getLocale, setLocale } from 'utils'
 import moment from 'moment'
 import classnames from 'classnames'
 import config from 'config'
 import styles from './Header.less'
+import { HeaderProps } from '@/types'
 
 const { SubMenu } = Menu
 
-class Header extends PureComponent {
-  handleClickMenu = e => {
+class Header extends PureComponent<HeaderProps<any>, Object> {
+  handleClickMenu = (e: any) => {
     e.key === 'SignOut' && this.props.onSignOut()
   }
+
   render() {
     const {
       fixed,
@@ -33,7 +34,7 @@ class Header extends PureComponent {
     } = this.props
 
     const rightContent = [
-      <Menu key="user" mode="horizontal" onClick={this.handleClickMenu}>
+      <Menu key='user' mode='horizontal' onClick={this.handleClickMenu}>
         <SubMenu
           title={
             <Fragment>
@@ -45,7 +46,7 @@ class Header extends PureComponent {
             </Fragment>
           }
         >
-          <Menu.Item key="SignOut">
+          <Menu.Item key='SignOut'>
             <Trans>Sign out</Trans>
           </Menu.Item>
         </SubMenu>
@@ -56,23 +57,23 @@ class Header extends PureComponent {
       const { languages } = config.i18n
       const language = getLocale()
       const currentLanguage = languages.find(
-        item => item.key === language
+        (item: any) => item.key === language,
       )
 
       rightContent.unshift(
         <Menu
-          key="language"
+          key='language'
           selectedKeys={[currentLanguage.key]}
           onClick={data => {
             setLocale(data.key)
           }}
-          mode="horizontal"
+          mode='horizontal'
         >
-          <SubMenu title={<Avatar size="small" src={currentLanguage.flag} />}>
-            {languages.map(item => (
+          <SubMenu title={<Avatar size='small' src={currentLanguage.flag} />}>
+            {languages.map((item: any) => (
               <Menu.Item key={item.key}>
                 <Avatar
-                  size="small"
+                  size='small'
                   style={{ marginRight: 8 }}
                   src={item.flag}
                 />
@@ -80,21 +81,21 @@ class Header extends PureComponent {
               </Menu.Item>
             ))}
           </SubMenu>
-        </Menu>
+        </Menu>,
       )
     }
 
     rightContent.unshift(
       <Popover
-        placement="bottomRight"
-        trigger="click"
-        key="notifications"
+        placement='bottomRight'
+        trigger='click'
+        key='notifications'
         overlayClassName={styles.notificationPopover}
         getPopupContainer={() => document.querySelector('#primaryLayout')}
         content={
           <div className={styles.notification}>
             <List
-              itemLayout="horizontal"
+              itemLayout='horizontal'
               dataSource={notifications}
               locale={{
                 emptyText: <Trans>You have viewed all notifications.</Trans>,
@@ -115,7 +116,7 @@ class Header extends PureComponent {
             />
             {notifications.length ? (
               <div
-                onClick={onAllNotificationsRead}
+                onClick={() => onAllNotificationsRead}
                 className={styles.clearButton}
               >
                 <Trans>Clear notifications</Trans>
@@ -132,7 +133,7 @@ class Header extends PureComponent {
         >
           <BellOutlined className={styles.iconFont} />
         </Badge>
-      </Popover>
+      </Popover>,
     )
 
     return (
@@ -141,7 +142,7 @@ class Header extends PureComponent {
           [styles.fixed]: fixed,
           [styles.collapsed]: collapsed,
         })}
-        id="layoutHeader"
+        id='layoutHeader'
       >
         <div
           className={styles.button}
@@ -153,17 +154,6 @@ class Header extends PureComponent {
       </Layout.Header>
     )
   }
-}
-
-Header.propTypes = {
-  fixed: PropTypes.bool,
-  user: PropTypes.object,
-  menus: PropTypes.array,
-  collapsed: PropTypes.bool,
-  onSignOut: PropTypes.func,
-  notifications: PropTypes.array,
-  onCollapseChange: PropTypes.func,
-  onAllNotificationsRead: PropTypes.func,
 }
 
 export default Header

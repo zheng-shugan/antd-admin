@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import styles from './Loader.less'
+import { LoaderProps } from '@/types'
 
-const Loader = ({ spinning = false, fullScreen }) => {
+const Loader = ({ spinning = false, fullScreen = true}: LoaderProps) => {
   return (
     <div
       className={classNames(styles.loader, {
